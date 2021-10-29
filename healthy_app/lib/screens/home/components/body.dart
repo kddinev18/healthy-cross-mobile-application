@@ -1,9 +1,10 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class Body extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                              offset: Offset(0, 10),
+                              offset: const Offset(0, 10),
                               blurRadius: 50,
                               color: kPrimaryColor.withOpacity(0.23))
                         ]),
