@@ -3,81 +3,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 
+import 'header.dart';
+
 class Body extends StatelessWidget {
   const Body({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [Header(size, context)],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Header(size: size),
+          Row(
+            children: [
+              Title(
+                text: "Recommended",
+              ),
+              TextButton(
+                style: ButtonStyle(),
+                onPressed: () {},
+                child: Text("Add"),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
+}
 
-  Container Header(Size size, BuildContext context) {
+class Title extends StatelessWidget {
+  const Title({Key key, this.text}) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.2,
+      height: 24,
       child: Stack(
         children: [
-          Container(
-            padding: EdgeInsets.only(
-                left: kDefaultPadding,
-                right: kDefaultPadding,
-                bottom: kDefaultPadding * 2),
-            height: size.height * 0.2 - 27,
-            decoration: const BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36),
-                )),
-            child: Row(
-              children: [
-                Text(
-                  'Random Text',
-                  style: Theme.of(context).textTheme.headline5.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.only(left: kDefaultPadding / 4),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                height: 54,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 10),
-                          blurRadius: 50,
-                          color: kPrimaryColor.withOpacity(0.23))
-                    ]),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {},
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle:
-                              TextStyle(color: kPrimaryColor.withOpacity(0.5)),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    SvgPicture.asset("assets/icons/search.svg"),
-                  ],
-                ),
-              ))
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: EdgeInsets.only(right: kDefaultPadding / 4),
+              height: 7,
+              color: kPrimaryColor.withOpacity(0.2),
+            ),
+          )
         ],
       ),
     );
