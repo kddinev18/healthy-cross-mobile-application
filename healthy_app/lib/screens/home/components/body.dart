@@ -1,6 +1,5 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 
 import 'header.dart';
@@ -17,13 +16,13 @@ class Body extends StatelessWidget {
           Header(size: size),
           Row(
             children: [
-              Title(
+              const Title(
                 text: "Recommended",
               ),
               TextButton(
-                style: ButtonStyle(),
+                style: const ButtonStyle(),
                 onPressed: () {},
-                child: Text("Add"),
+                child: const Text("Add"),
               )
             ],
           )
@@ -48,7 +47,7 @@ class Title extends StatelessWidget {
             padding: const EdgeInsets.only(left: kDefaultPadding / 4),
             child: Text(
               text,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Positioned(
@@ -56,7 +55,7 @@ class Title extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              margin: EdgeInsets.only(right: kDefaultPadding / 4),
+              margin: const EdgeInsets.only(right: kDefaultPadding / 4),
               height: 7,
               color: kPrimaryColor.withOpacity(0.2),
             ),
