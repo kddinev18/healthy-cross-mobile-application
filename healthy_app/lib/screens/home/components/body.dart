@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:healthy_app/constants.dart';
+import 'package:healthy_app/screens/home/components/recipe_container.dart';
 
 import 'header.dart';
 import 'title_with_underscore.dart';
@@ -22,6 +23,26 @@ class _BodyState extends State<Body> {
         child: Column(
       children: [
         Header(size: size),
+        Padding(
+          padding: const EdgeInsets.only(
+              left: kDefaultPadding, right: kDefaultPadding),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: const TitleWithUnderscore(
+                  text: "Recommended Recipies",
+                ),
+                padding: EdgeInsets.only(bottom: kDefaultPadding),
+              ),
+              const RecipeContainer(
+                path1: "assets/icons/bok-choy-svgrepo-com.svg",
+                path2: "assets/icons/egg-svgrepo-com.svg",
+                path3: "assets/icons/ham-svgrepo-com.svg",
+              )
+            ],
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(
               left: kDefaultPadding, right: kDefaultPadding),
@@ -51,17 +72,22 @@ class _BodyState extends State<Body> {
           ),
         ),
         Container(
+          padding: const EdgeInsets.only(
+              right: kDefaultPadding,
+              left: kDefaultPadding,
+              top: kDefaultPadding / 3),
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height / 3,
           child: CustomScrollView(
             slivers: <Widget>[
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return Container(
+                      padding: EdgeInsets.all(kDefaultPadding),
                       alignment: Alignment.center,
-                      color: Colors.blue[200],
-                      height: 100,
+                      color: kPrimaryColor,
+                      height: kDefaultPadding * 3,
                       child: Text('Item: ${bottom[index]}'),
                     );
                   },
@@ -70,7 +96,7 @@ class _BodyState extends State<Body> {
               ),
             ],
           ),
-        )
+        ),
       ],
     ));
   }
