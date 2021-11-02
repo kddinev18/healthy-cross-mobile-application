@@ -36,7 +36,7 @@ class _BodyState extends State<Body> {
                 padding: EdgeInsets.only(bottom: kDefaultPadding),
               ),
               const RecipeContainer(
-                name: "Healthyasdasdaaaaaaaaaaaaa",
+                name: "Healthy",
                 path1: "assets/icons/bok-choy-svgrepo-com.svg",
                 path2: "assets/icons/egg-svgrepo-com.svg",
                 path3: "assets/icons/ham-svgrepo-com.svg",

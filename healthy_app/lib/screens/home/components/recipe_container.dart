@@ -32,15 +32,8 @@ class RecipeContainer extends StatelessWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      name,
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: fontSize(name)),
-                    ),
-                  ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: dynamicFontSize(context, name)),
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -79,16 +72,29 @@ class RecipeContainer extends StatelessWidget {
     );
   }
 
-  double fontSize(String name) {
+  Text dynamicFontSize(BuildContext context, String name) {
+    double fontSize = 0;
+    String finalName = "";
     if (name.length <= 16) {
       if (name.length > 14) {
-        return 16.0;
+        finalName = name;
+        fontSize = 15.0;
       } else {
-        return 20.0;
+        finalName = name;
+        fontSize = 20.0;
       }
     } else {
-      return 10.0;
+      fontSize = 15.0;
+      for (int i = 0; i < 16; i++) {
+        finalName += name[i];
+      }
+      finalName += "...";
     }
+    return Text(finalName,
+        style: Theme.of(context).textTheme.headline5!.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize));
   }
 
   Container typeContainer(BuildContext context, String path) {
