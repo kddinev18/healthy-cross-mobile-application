@@ -70,10 +70,18 @@ class RecipeContainer extends StatelessWidget {
   }
 
   Container typeContainer(BuildContext context, String path) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 11,
-      height: MediaQuery.of(context).size.width / 11,
-      child: SvgPicture.asset(path),
-    );
+    if (path == "") {
+      return Container(
+        width: MediaQuery.of(context).size.width / 11,
+        height: MediaQuery.of(context).size.width / 11,
+        child: SvgPicture.asset(path),
+      );
+    } else {
+      return Container(
+        width: MediaQuery.of(context).size.width / 11,
+        height: MediaQuery.of(context).size.width / 11,
+        child: SvgPicture.asset(path),
+      );
+    }
   }
 }
