@@ -6,11 +6,13 @@ import '../../../constants.dart';
 class RecipeContainer extends StatelessWidget {
   const RecipeContainer({
     Key? key,
+    required this.name,
     required this.path1,
     required this.path2,
     required this.path3,
   }) : super(key: key);
 
+  final String name;
   final String path1;
   final String path2;
   final String path3;
@@ -32,32 +34,40 @@ class RecipeContainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      'Name: ',
+                      name,
                       style: Theme.of(context).textTheme.headline5!.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: fontSize(name)),
                     ),
                   ),
                   Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Type: ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white.withOpacity(0.25)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Type: ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                            ),
+                            typeContainer(context, path1),
+                            typeContainer(context, path2),
+                            typeContainer(context, path3),
+                          ],
                         ),
-                        typeContainer(context, path1),
-                        typeContainer(context, path2),
-                        typeContainer(context, path3),
-                      ],
+                      ),
                     ),
                   ),
                 ],
@@ -69,17 +79,29 @@ class RecipeContainer extends StatelessWidget {
     );
   }
 
+  double fontSize(String name) {
+    if (name.length <= 16) {
+      if (name.length > 14) {
+        return 16.0;
+      } else {
+        return 20.0;
+      }
+    } else {
+      return 10.0;
+    }
+  }
+
   Container typeContainer(BuildContext context, String path) {
     if (path == "") {
       return Container(
-        width: MediaQuery.of(context).size.width / 11,
-        height: MediaQuery.of(context).size.width / 11,
+        width: MediaQuery.of(context).size.width / 10.5,
+        height: MediaQuery.of(context).size.width / 10.5,
         child: SvgPicture.asset(path),
       );
     } else {
       return Container(
-        width: MediaQuery.of(context).size.width / 11,
-        height: MediaQuery.of(context).size.width / 11,
+        width: MediaQuery.of(context).size.width / 10.5,
+        height: MediaQuery.of(context).size.width / 10.5,
         child: SvgPicture.asset(path),
       );
     }
