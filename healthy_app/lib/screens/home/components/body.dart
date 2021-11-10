@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:healthy_app/constants.dart';
-import 'package:healthy_app/screens/home/components/recipe_container.dart';
+import 'package:healthy_app/screens/home/components/menu_container.dart';
 
 import 'header.dart';
 import 'title_with_underscore.dart';
@@ -31,9 +31,9 @@ class _BodyState extends State<Body> {
               Container(
                 alignment: Alignment.centerLeft,
                 child: const TitleWithUnderscore(
-                  text: "Recommended Recipies",
+                  text: "Recommended Menus",
                 ),
-                padding: EdgeInsets.only(bottom: kDefaultPadding),
+                padding: EdgeInsets.only(bottom: kDefaultPadding / 4),
               ),
               const RecipeContainer(
                 name: "Healthy",
@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
           child: Row(
             children: [
               const TitleWithUnderscore(
-                text: "Recommended",
+                text: "Your Menus",
               ),
               Spacer(),
               CircleAvatar(
