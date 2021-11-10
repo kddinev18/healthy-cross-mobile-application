@@ -28,13 +28,15 @@ class RecipeContainer extends StatelessWidget {
       child: Container(
         child: Container(
           width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
-          height: 55,
+          height: 65,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: kPrimaryColor),
+            borderRadius: BorderRadius.circular(20),
+            color: kPrimaryColor.withOpacity(0.7),
+          ),
           child: Row(
             children: [
               Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(kDefaultPadding),
                   child: dynamicFontSize(context, name)),
               Spacer(),
               Container(
@@ -42,7 +44,7 @@ class RecipeContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white.withOpacity(0.25)),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.5),
                   child: Row(
                     children: [
                       Text(
@@ -87,19 +89,12 @@ class RecipeContainer extends StatelessWidget {
   }
 
   Text dynamicFontSize(BuildContext context, String name) {
-    double fontSize = 0;
+    double fontSize = 20;
     String finalName = "";
-    if (name.length <= 16) {
-      if (name.length > 14) {
-        finalName = name;
-        fontSize = 15.0;
-      } else {
-        finalName = name;
-        fontSize = 20.0;
-      }
+    if (name.length <= 11) {
+      finalName = name;
     } else {
-      fontSize = 15.0;
-      for (int i = 0; i < 16; i++) {
+      for (int i = 0; i < 9; i++) {
         finalName += name[i];
       }
       finalName += "...";
@@ -121,7 +116,7 @@ class RecipeContainer extends StatelessWidget {
       return Container(
         width: MediaQuery.of(context).size.width / 10.5,
         height: MediaQuery.of(context).size.width / 10.5,
-        child: SvgPicture.asset(path),
+        child: Image.asset(path),
       );
     }
   }

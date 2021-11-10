@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 import 'package:healthy_app/screens/home/components/menu_container.dart';
 
@@ -20,85 +21,74 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
-      children: [
-        Header(size: size),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: kDefaultPadding, right: kDefaultPadding),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const TitleWithUnderscore(
-                  text: "Recommended Menus",
-                ),
-                padding: EdgeInsets.only(bottom: kDefaultPadding / 4),
-              ),
-              const RecipeContainer(
-                name: "Healthy",
-                path1: "assets/icons/bok-choy-svgrepo-com.svg",
-                path2: "assets/icons/egg-svgrepo-com.svg",
-                path3: "assets/icons/ham-svgrepo-com.svg",
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: kDefaultPadding, right: kDefaultPadding),
-          child: Row(
-            children: [
-              const TitleWithUnderscore(
-                text: "Your Menus",
-              ),
-              Spacer(),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: kPrimaryColor,
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      bottom.add(bottom.length);
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.add,
-                    size: 20,
+          children: [
+            Header(size: size),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: kDefaultPadding, right: kDefaultPadding),
+              child: Row(
+                children: [
+                  const TitleWithUnderscore(
+                    text: "Your Menus",
                   ),
-                  color: Colors.white,
-                ),
+                  Spacer(),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: kPrimaryColor,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          bottom.add(bottom.length);
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.add,
+                        size: 20,
+                      ),
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(
-              right: kDefaultPadding,
-              left: kDefaultPadding,
-              top: kDefaultPadding / 3),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 3,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return Container(
-                      padding: EdgeInsets.all(kDefaultPadding),
-                      alignment: Alignment.center,
-                      color: kPrimaryColor,
-                      height: kDefaultPadding * 3,
-                      child: Text('Item: ${bottom[index]}'),
-                    );
-                  },
-                  childCount: bottom.length - 1,
+            ),
+            Stack(
+              children: [
+                Container(
+                  height: size.height / 1.70,
+                  width: size.width,
+                  child: SvgPicture.asset(
+                      "assets/images/Eating healthy food-bro.svg"),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ));
+                Container(
+                  padding: const EdgeInsets.only(
+                      right: kDefaultPadding,
+                      left: kDefaultPadding,
+                      top: kDefaultPadding / 3),
+                  width: size.height,
+                  height: size.height / 1.80,
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return const RecipeContainer(
+                              name: "Healthy",
+                              path1: "assets/icons/icons8-broccoli-50.png",
+                              path2: "assets/icons/icons8-milk-bottle-50.png",
+                              path3: "assets/icons/icons8-meat-50.png",
+                            );
+                          },
+                          childCount: bottom.length - 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ));
   }
 }
