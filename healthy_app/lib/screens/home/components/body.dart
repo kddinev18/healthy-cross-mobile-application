@@ -16,12 +16,12 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   List<int> bottom = <int>[0];
-
+  List<String> names = <String>[];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             Header(size: size),
@@ -33,15 +33,43 @@ class _BodyState extends State<Body> {
                   const TitleWithUnderscore(
                     text: "Your Menus",
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CircleAvatar(
                     radius: 20,
                     backgroundColor: kPrimaryColor,
                     child: IconButton(
                       onPressed: () {
-                        setState(() {
-                          bottom.add(bottom.length);
-                        });
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Menu: '),
+                                content: Container(
+                                  child: Column(
+                                    children: [Text('hi')],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        bottom.add(bottom.length);
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
+                                    //textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Ok'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    //textColor: Theme.of(context).primaryColor,
+                                    child: const Text('Cancel'),
+                                  ),
+                                ],
+                              );
+                            });
                       },
                       icon: const Icon(
                         Icons.add,
@@ -63,9 +91,7 @@ class _BodyState extends State<Body> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(
-                      right: kDefaultPadding,
-                      left: kDefaultPadding,
-                      top: kDefaultPadding / 3),
+                      right: 0, left: 0, top: kDefaultPadding / 3),
                   width: size.height,
                   height: size.height / 1.80,
                   child: CustomScrollView(
