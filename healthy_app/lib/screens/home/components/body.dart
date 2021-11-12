@@ -17,6 +17,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List<int> bottom = <int>[0];
   List<String> names = <String>[];
+
+  TextEditingController nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,15 +47,23 @@ class _BodyState extends State<Body> {
                             builder: (context) {
                               return AlertDialog(
                                 title: const Text('Menu: '),
-                                content: Container(
-                                  child: Column(
-                                    children: [Text('hi')],
-                                  ),
+                                content: Column(
+                                  children: [
+                                    TextField(
+                                        controller: nameController,
+                                        onChanged: (v) =>
+                                            nameController.text = v,
+                                        decoration: const InputDecoration(
+                                          labelText: 'Name the Pup',
+                                        )),
+                                  ],
                                 ),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       setState(() {
+                                        names.add(
+                                            nameController.text ?? "Empty");
                                         bottom.add(bottom.length);
                                       });
                                       Navigator.of(context).pop();
