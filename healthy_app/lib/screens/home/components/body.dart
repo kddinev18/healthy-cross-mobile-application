@@ -45,41 +45,7 @@ class _BodyState extends State<Body> {
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Menu: '),
-                                content: Column(
-                                  children: [
-                                    TextField(
-                                        controller: nameController,
-                                        onChanged: (v) =>
-                                            nameController.text = v,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Name the Pup',
-                                        )),
-                                  ],
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        names.add(
-                                            nameController.text ?? "Empty");
-                                        bottom.add(bottom.length);
-                                      });
-                                      Navigator.of(context).pop();
-                                    },
-                                    //textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Ok'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    //textColor: Theme.of(context).primaryColor,
-                                    child: const Text('Cancel'),
-                                  ),
-                                ],
-                              );
+                              return addMenuPopUp(context);
                             });
                       },
                       icon: const Icon(
@@ -127,5 +93,47 @@ class _BodyState extends State<Body> {
             ),
           ],
         ));
+  }
+
+  AlertDialog addMenuPopUp(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Menu: '),
+      content: Column(
+        children: [
+          TextField(
+              controller: nameController,
+              onChanged: (v) => nameController.text = v,
+              decoration: const InputDecoration(
+                labelText: 'Name the Pup',
+              )),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            setState(() {
+              if (nameController.text == "") {
+                names.add("Empty");
+              } else {
+                names.add(nameController.text);
+              }
+              bottom.add(bottom.length);
+            });
+            Navigator.of(context).pop();
+            nameController.text = "";
+          },
+          //textColor: Theme.of(context).primaryColor,
+          child: const Text('Ok'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            nameController.text = "";
+          },
+          //textColor: Theme.of(context).primaryColor,
+          child: const Text('Cancel'),
+        ),
+      ],
+    );
   }
 }
