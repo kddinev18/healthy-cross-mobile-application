@@ -110,8 +110,8 @@ class _BodyState extends State<Body> {
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return const RecipeContainer(
-                              name: "Healthy",
+                            return RecipeContainer(
+                              name: names[index],
                               path1: "assets/icons/icons8-broccoli-50.png",
                               path2: "assets/icons/icons8-milk-bottle-50.png",
                               path3: "assets/icons/icons8-meat-50.png",
