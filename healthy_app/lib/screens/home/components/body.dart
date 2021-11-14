@@ -17,9 +17,10 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List<int> bottom = <int>[0];
   List<String> names = <String>[];
-
-  TextEditingController nameController = TextEditingController();
-
+  List<String> decriptions = <String>[];
+  List<bool> isVegetarian = <bool>[];
+  List<bool> isVegen = <bool>[];
+  List<bool> containsMeat = <bool>[];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,6 +36,7 @@ class _BodyState extends State<Body> {
                 children: [
                   const TitleWithUnderscore(
                     text: "Your Menus",
+                    size: 20,
                   ),
                   const Spacer(),
                   CircleAvatar(
@@ -78,9 +80,16 @@ class _BodyState extends State<Body> {
                           (BuildContext context, int index) {
                             return RecipeContainer(
                               name: names[index],
-                              path1: "assets/icons/icons8-broccoli-50.png",
-                              path2: "assets/icons/icons8-milk-bottle-50.png",
-                              path3: "assets/icons/icons8-meat-50.png",
+                              path1: imageShower(
+                                  "assets/icons/icons8-broccoli-50.png",
+                                  isVegetarian[index]),
+                              path2: imageShower(
+                                  "assets/icons/icons8-milk-bottle-50.png",
+                                  isVegen[index]),
+                              path3: imageShower(
+                                  "assets/icons/icons8-meat-50.png",
+                                  containsMeat[index]),
+                              content: decriptions[index],
                             );
                           },
                           childCount: bottom.length - 1,
@@ -96,44 +105,128 @@ class _BodyState extends State<Body> {
   }
 
   AlertDialog addMenuPopUp(BuildContext context) {
+    bool isVegetarianCB = false;
+    bool isVeganCB = false;
+    bool containsMeatCB = false;
+
+    TextEditingController nameController = TextEditingController();
+    TextEditingController contentController = TextEditingController();
+
     return AlertDialog(
+      scrollable: true,
+      contentPadding: const EdgeInsets.all(kDefaultPadding),
+      titlePadding: const EdgeInsets.only(
+          top: kDefaultPadding, left: kDefaultPadding, right: kDefaultPadding),
       title: const Text('Menu: '),
-      content: Column(
-        children: [
-          TextField(
-              controller: nameController,
-              onChanged: (v) => nameController.text = v,
-              decoration: const InputDecoration(
-                labelText: 'Name the Pup',
-              )),
-        ],
+      content: Container(
+        width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
+        child: Column(
+          children: [
+            TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        gapPadding: kDefaultPadding / 5,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(kDefaultPadding))),
+                    hintText: 'Enter a name',
+                    icon: Icon(Icons.book))),
+            TextFormField(
+                controller: contentController,
+                maxLines: null,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        gapPadding: kDefaultPadding / 5,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(kDefaultPadding))),
+                    hintText: 'Enter a discription',
+                    icon: Icon(Icons.book))),
+            CheckBox(isVegetarianCB, "Is Vegetarian", 17.5,
+                "assets/icons/icons8-broccoli-50.png"),
+            CheckBox(isVeganCB, "Is Vegan", 17.5,
+                "assets/icons/icons8-milk-bottle-50.png"),
+            CheckBox(containsMeatCB, "Contains Meat", 17.5,
+                "assets/icons/icons8-meat-50.png"),
+          ],
+        ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            setState(() {
-              if (nameController.text == "") {
-                names.add("Empty");
-              } else {
-                names.add(nameController.text);
-              }
-              bottom.add(bottom.length);
-            });
-            Navigator.of(context).pop();
-            nameController.text = "";
-          },
-          //textColor: Theme.of(context).primaryColor,
-          child: const Text('Ok'),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            nameController.text = "";
-          },
-          //textColor: Theme.of(context).primaryColor,
-          child: const Text('Cancel'),
+        Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  nameController.text = "";
+                },
+                child: const Text('Cancel'),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    if (nameController.text == "") {
+                      names.add("Empty");
+                    } else {
+                      names.add(nameController.text);
+                    }
+                    if (contentController.text == "") {
+                      decriptions.add("Empty");
+                    } else {
+                      decriptions.add(contentController.text);
+                    }
+                    isVegetarian.add(isVegetarianCB);
+                    isVegen.add(isVeganCB);
+                    containsMeat.add(containsMeatCB);
+
+                    bottom.add(bottom.length);
+                  });
+                  Navigator.of(context).pop();
+                  nameController.text = "";
+                },
+                //textColor: Theme.of(context).primaryColor,
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
         ),
       ],
     );
+  }
+
+  String imageShower(String path, bool isEnabled) {
+    if (isEnabled) {
+      return path;
+    } else {
+      return "";
+    }
+  }
+
+  StatefulBuilder CheckBox(
+      bool value1, String text, double fontSize, String imagePath) {
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+      return Container(
+        margin: const EdgeInsets.only(
+            left: kDefaultPadding / 2, right: kDefaultPadding / 2),
+        child: CheckboxListTile(
+          contentPadding: const EdgeInsets.only(
+              top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
+          title: TitleWithUnderscore(text: text, size: fontSize),
+          value: value1,
+          onChanged: (bool value) {
+            setState(() {
+              value1 = value;
+            });
+          },
+          secondary: Image.asset(
+            imagePath,
+            width: MediaQuery.of(context).size.width / 10.5,
+            height: MediaQuery.of(context).size.width / 10.5,
+          ),
+        ),
+      );
+    });
   }
 }

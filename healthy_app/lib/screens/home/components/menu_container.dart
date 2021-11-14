@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class RecipeContainer extends StatelessWidget {
-  const RecipeContainer({
-    Key? key,
-    required this.name,
-    required this.path1,
-    required this.path2,
-    required this.path3,
-  }) : super(key: key);
+  const RecipeContainer(
+      {Key? key,
+      required this.name,
+      required this.path1,
+      required this.path2,
+      required this.path3,
+      required this.content})
+      : super(key: key);
 
   final String name;
+  final String content;
   final String path1;
   final String path2;
   final String path3;
@@ -22,7 +24,8 @@ class RecipeContainer extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
+          builder: (BuildContext context) =>
+              _buildPopupDialog(context, content),
         );
       },
       child: Container(
@@ -66,11 +69,11 @@ class RecipeContainer extends StatelessWidget {
     );
   }
 
-  Widget _buildPopupDialog(BuildContext context) {
+  Widget _buildPopupDialog(BuildContext context, String content) {
     return AlertDialog(
       title: const Text('Menu: '),
       content: Column(
-        children: [const Text('hi')],
+        children: [Text(content)],
       ),
       actions: [
         TextButton(

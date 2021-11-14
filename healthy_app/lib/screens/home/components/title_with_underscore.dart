@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class TitleWithUnderscore extends StatelessWidget {
-  const TitleWithUnderscore({Key? key, required this.text}) : super(key: key);
+  const TitleWithUnderscore({Key? key, required this.text, required this.size})
+      : super(key: key);
 
   final String text;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class TitleWithUnderscore extends StatelessWidget {
             padding: const EdgeInsets.only(left: kDefaultPadding / 4),
             child: Text(
               text,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
             ),
           ),
           Positioned(
