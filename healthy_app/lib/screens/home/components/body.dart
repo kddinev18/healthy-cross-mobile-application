@@ -141,12 +141,12 @@ class _BodyState extends State<Body> {
                             BorderRadius.all(Radius.circular(kDefaultPadding))),
                     hintText: 'Enter a discription',
                     icon: Icon(Icons.book))),
-            CheckBox(isVegetarianCB, "Is Vegetarian", 17.5,
-                "assets/icons/icons8-broccoli-50.png"),
-            CheckBox(isVeganCB, "Is Vegan", 17.5,
-                "assets/icons/icons8-milk-bottle-50.png"),
-            CheckBox(containsMeatCB, "Contains Meat", 17.5,
-                "assets/icons/icons8-meat-50.png"),
+            CheckBox("Is Vegetarian", 17.5,
+                "assets/icons/icons8-broccoli-50.png", "vegetarian"),
+            CheckBox("Is Vegan", 17.5, "assets/icons/icons8-milk-bottle-50.png",
+                "vegan"),
+            CheckBox("Contains Meat", 17.5, "assets/icons/icons8-meat-50.png",
+                "meat"),
           ],
         ),
       ),
@@ -159,6 +159,9 @@ class _BodyState extends State<Body> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   nameController.text = "";
+                  isVegetarian.removeLast();
+                  isVegen.removeLast();
+                  containsMeat.removeLast();
                 },
                 child: const Text('Cancel'),
               ),
@@ -176,9 +179,9 @@ class _BodyState extends State<Body> {
                     } else {
                       decriptions.add(contentController.text);
                     }
-                    isVegetarian.add(isVegetarianCB);
+                    /*isVegetarian.add(isVegetarianCB);
                     isVegen.add(isVeganCB);
-                    containsMeat.add(containsMeatCB);
+                    containsMeat.add(containsMeatCB);*/
 
                     bottom.add(bottom.length);
                   });
@@ -204,7 +207,15 @@ class _BodyState extends State<Body> {
   }
 
   StatefulBuilder CheckBox(
-      bool value1, String text, double fontSize, String imagePath) {
+      String text, double fontSize, String imagePath, String whatToUSe) {
+    bool value1 = false;
+    if (whatToUSe == "vegetarian") {
+      isVegetarian.add(value1);
+    } else if (whatToUSe == "vegan") {
+      isVegen.add(value1);
+    } else if (whatToUSe == "meat") {
+      containsMeat.add(value1);
+    }
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       return Container(
@@ -218,6 +229,13 @@ class _BodyState extends State<Body> {
           onChanged: (bool value) {
             setState(() {
               value1 = value;
+              if (whatToUSe == "vegetarian") {
+                isVegetarian[isVegetarian.length - 1] = value1;
+              } else if (whatToUSe == "vegan") {
+                isVegen[isVegen.length - 1] = value1;
+              } else if (whatToUSe == "meat") {
+                containsMeat[containsMeat.length - 1] = value1;
+              }
             });
           },
           secondary: Image.asset(
