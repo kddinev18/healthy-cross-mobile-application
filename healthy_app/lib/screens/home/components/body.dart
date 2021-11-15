@@ -17,10 +17,13 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   List<int> bottom = <int>[0];
   List<String> names = <String>[];
-  List<String> decriptions = <String>[];
+
   List<bool> isVegetarian = <bool>[];
   List<bool> isVegen = <bool>[];
   List<bool> containsMeat = <bool>[];
+
+  List<List<String>> dayOfTheWeek = <List<String>>[];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -89,7 +92,7 @@ class _BodyState extends State<Body> {
                               path3: imageShower(
                                   "assets/icons/icons8-meat-50.png",
                                   containsMeat[index]),
-                              content: decriptions[index],
+                              content: dayOfTheWeek[index],
                             );
                           },
                           childCount: bottom.length - 1,
@@ -105,12 +108,18 @@ class _BodyState extends State<Body> {
   }
 
   AlertDialog addMenuPopUp(BuildContext context) {
-    bool isVegetarianCB = false;
-    bool isVeganCB = false;
-    bool containsMeatCB = false;
-
     TextEditingController nameController = TextEditingController();
-    TextEditingController contentController = TextEditingController();
+
+    List<TextEditingController> dayOfTheWeekController =
+        <TextEditingController>[
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ];
 
     return AlertDialog(
       scrollable: true,
@@ -122,25 +131,47 @@ class _BodyState extends State<Body> {
         width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
         child: Column(
           children: [
-            TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(
+            Padding(
+              padding: const EdgeInsets.only(bottom: kDefaultPadding),
+              child: TextFormField(
+                  controller: nameController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         gapPadding: kDefaultPadding / 5,
                         borderRadius:
                             BorderRadius.all(Radius.circular(kDefaultPadding))),
                     hintText: 'Enter a name',
-                    icon: Icon(Icons.book))),
-            TextFormField(
-                controller: contentController,
-                maxLines: null,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        gapPadding: kDefaultPadding / 5,
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(kDefaultPadding))),
-                    hintText: 'Enter a discription',
-                    icon: Icon(Icons.book))),
+                    //icon: Icon(Icons.book)
+                  )),
+            ),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[0],
+                text: "Monday",
+                description: "Enter Monday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[1],
+                text: "Tuesday",
+                description: "Enter Tuesday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[2],
+                text: "Wednesday",
+                description: "Enter Wednesday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[3],
+                text: "Thursday",
+                description: "Enter Thursday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[4],
+                text: "Friday",
+                description: "Enter Friday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[5],
+                text: "Saturday",
+                description: "Enter Saturday's meals"),
+            TitleWithTextField(
+                contentController: dayOfTheWeekController[6],
+                text: "Sunday",
+                description: "Enter Sunday's meals"),
             CheckBox("Is Vegetarian", 17.5,
                 "assets/icons/icons8-broccoli-50.png", "vegetarian"),
             CheckBox("Is Vegan", 17.5, "assets/icons/icons8-milk-bottle-50.png",
@@ -169,7 +200,17 @@ class _BodyState extends State<Body> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    if (nameController.text == "") {
+                    names.add(nameController.text ?? "Empty");
+                    dayOfTheWeek.add(<String>[
+                      dayOfTheWeekController[0].text,
+                      dayOfTheWeekController[1].text,
+                      dayOfTheWeekController[2].text,
+                      dayOfTheWeekController[3].text,
+                      dayOfTheWeekController[4].text,
+                      dayOfTheWeekController[5].text,
+                      dayOfTheWeekController[6].text,
+                    ]);
+                    /*if (nameController.text == "") {
                       names.add("Empty");
                     } else {
                       names.add(nameController.text);
@@ -178,10 +219,7 @@ class _BodyState extends State<Body> {
                       decriptions.add("Empty");
                     } else {
                       decriptions.add(contentController.text);
-                    }
-                    /*isVegetarian.add(isVegetarianCB);
-                    isVegen.add(isVeganCB);
-                    containsMeat.add(containsMeatCB);*/
+                    }*/
 
                     bottom.add(bottom.length);
                   });
@@ -246,5 +284,41 @@ class _BodyState extends State<Body> {
         ),
       );
     });
+  }
+}
+
+class TitleWithTextField extends StatelessWidget {
+  const TitleWithTextField({
+    Key key,
+    @required this.contentController,
+    @required this.text,
+    @required this.description,
+  }) : super(key: key);
+
+  final String description;
+  final String text;
+  final TextEditingController contentController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleWithUnderscore(text: text, size: 20),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+              controller: contentController,
+              maxLines: null,
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      gapPadding: kDefaultPadding / 5,
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(kDefaultPadding))),
+                  hintText: description,
+                  icon: const Icon(Icons.book))),
+        ),
+      ],
+    );
   }
 }

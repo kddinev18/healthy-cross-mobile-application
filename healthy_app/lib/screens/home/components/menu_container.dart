@@ -13,8 +13,9 @@ class RecipeContainer extends StatelessWidget {
       required this.content})
       : super(key: key);
 
+  final List<String> content;
+
   final String name;
-  final String content;
   final String path1;
   final String path2;
   final String path3;
@@ -46,7 +47,7 @@ class RecipeContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white.withOpacity(0.25)),
               child: Padding(
-                padding: const EdgeInsets.all(12.5),
+                padding: const EdgeInsets.all(13),
                 child: Row(
                   children: [
                     Text(
@@ -69,11 +70,19 @@ class RecipeContainer extends StatelessWidget {
     );
   }
 
-  Widget _buildPopupDialog(BuildContext context, String content) {
+  Widget _buildPopupDialog(BuildContext context, List<String> content) {
     return AlertDialog(
       title: const Text('Menu: '),
       content: Column(
-        children: [Text(content)],
+        children: [
+          Text(content[0]),
+          Text(content[1]),
+          Text(content[2]),
+          Text(content[3]),
+          Text(content[4]),
+          Text(content[5]),
+          Text(content[6]),
+        ],
       ),
       actions: [
         TextButton(
