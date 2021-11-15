@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_app/screens/home/components/title_with_underscore.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import '../../../constants.dart';
@@ -75,12 +76,19 @@ class RecipeContainer extends StatelessWidget {
       title: const Text('Menu: '),
       content: Column(
         children: [
+          const TitleWithUnderscore(text: "Monday", size: 20),
           Text(content[0]),
+          const TitleWithUnderscore(text: "Tuesday", size: 20),
           Text(content[1]),
+          const TitleWithUnderscore(text: "Wednesday", size: 20),
           Text(content[2]),
+          const TitleWithUnderscore(text: "Thursday", size: 20),
           Text(content[3]),
+          const TitleWithUnderscore(text: "Friday", size: 20),
           Text(content[4]),
+          const TitleWithUnderscore(text: "Saturday", size: 20),
           Text(content[5]),
+          const TitleWithUnderscore(text: "Sunday", size: 20),
           Text(content[6]),
         ],
       ),

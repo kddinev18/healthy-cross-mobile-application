@@ -24,6 +24,9 @@ class _BodyState extends State<Body> {
 
   List<List<String>> dayOfTheWeek = <List<String>>[];
 
+  bool value1 = false;
+  bool value2 = false;
+  bool value3 = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,8 +50,12 @@ class _BodyState extends State<Body> {
                     backgroundColor: kPrimaryColor,
                     child: IconButton(
                       onPressed: () {
+                        isVegetarian.add(false);
+                        isVegen.add(false);
+                        containsMeat.add(false);
                         showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) {
                               return addMenuPopUp(context);
                             });
@@ -109,7 +116,9 @@ class _BodyState extends State<Body> {
 
   AlertDialog addMenuPopUp(BuildContext context) {
     TextEditingController nameController = TextEditingController();
-
+    value1 = false;
+    value2 = false;
+    value3 = false;
     List<TextEditingController> dayOfTheWeekController =
         <TextEditingController>[
       TextEditingController(),
@@ -120,7 +129,6 @@ class _BodyState extends State<Body> {
       TextEditingController(),
       TextEditingController(),
     ];
-
     return AlertDialog(
       scrollable: true,
       contentPadding: const EdgeInsets.all(kDefaultPadding),
@@ -172,12 +180,81 @@ class _BodyState extends State<Body> {
                 contentController: dayOfTheWeekController[6],
                 text: "Sunday",
                 description: "Enter Sunday's meals"),
-            CheckBox("Is Vegetarian", 17.5,
+            StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                margin: const EdgeInsets.only(
+                    left: kDefaultPadding / 2, right: kDefaultPadding / 2),
+                child: CheckboxListTile(
+                  contentPadding: const EdgeInsets.only(
+                      top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
+                  title: TitleWithUnderscore(text: "Is Vegetarian", size: 17.5),
+                  value: value1,
+                  onChanged: (bool value) {
+                    setState(() {
+                      value1 = value;
+                    });
+                  },
+                  secondary: Image.asset(
+                    "assets/icons/icons8-broccoli-50.png",
+                    width: MediaQuery.of(context).size.width / 10.5,
+                    height: MediaQuery.of(context).size.width / 10.5,
+                  ),
+                ),
+              );
+            }),
+            StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                margin: const EdgeInsets.only(
+                    left: kDefaultPadding / 2, right: kDefaultPadding / 2),
+                child: CheckboxListTile(
+                  contentPadding: const EdgeInsets.only(
+                      top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
+                  title: TitleWithUnderscore(text: "Is Vegan", size: 17.5),
+                  value: value2,
+                  onChanged: (bool value) {
+                    setState(() {
+                      value2 = value;
+                    });
+                  },
+                  secondary: Image.asset(
+                    "assets/icons/icons8-milk-bottle-50.png",
+                    width: MediaQuery.of(context).size.width / 10.5,
+                    height: MediaQuery.of(context).size.width / 10.5,
+                  ),
+                ),
+              );
+            }),
+            StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                margin: const EdgeInsets.only(
+                    left: kDefaultPadding / 2, right: kDefaultPadding / 2),
+                child: CheckboxListTile(
+                  contentPadding: const EdgeInsets.only(
+                      top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
+                  title: TitleWithUnderscore(text: "Contains Meat", size: 17.5),
+                  value: value3,
+                  onChanged: (bool value) {
+                    setState(() {
+                      value3 = value;
+                    });
+                  },
+                  secondary: Image.asset(
+                    "assets/icons/icons8-meat-50.png",
+                    width: MediaQuery.of(context).size.width / 10.5,
+                    height: MediaQuery.of(context).size.width / 10.5,
+                  ),
+                ),
+              );
+            }),
+            /*CheckBox("Is Vegetarian", 17.5,
                 "assets/icons/icons8-broccoli-50.png", "vegetarian"),
             CheckBox("Is Vegan", 17.5, "assets/icons/icons8-milk-bottle-50.png",
                 "vegan"),
             CheckBox("Contains Meat", 17.5, "assets/icons/icons8-meat-50.png",
-                "meat"),
+                "meat"),*/
           ],
         ),
       ),
@@ -200,7 +277,7 @@ class _BodyState extends State<Body> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    names.add(nameController.text ?? "Empty");
+                    names.add(nameController.text);
                     dayOfTheWeek.add(<String>[
                       dayOfTheWeekController[0].text,
                       dayOfTheWeekController[1].text,
@@ -210,6 +287,9 @@ class _BodyState extends State<Body> {
                       dayOfTheWeekController[5].text,
                       dayOfTheWeekController[6].text,
                     ]);
+                    isVegetarian[isVegetarian.length - 1] = value1;
+                    isVegen[isVegen.length - 1] = value2;
+                    containsMeat[containsMeat.length - 1] = value3;
                     /*if (nameController.text == "") {
                       names.add("Empty");
                     } else {
@@ -226,7 +306,6 @@ class _BodyState extends State<Body> {
                   Navigator.of(context).pop();
                   nameController.text = "";
                 },
-                //textColor: Theme.of(context).primaryColor,
                 child: const Text('Ok'),
               ),
             ],
@@ -242,48 +321,6 @@ class _BodyState extends State<Body> {
     } else {
       return "";
     }
-  }
-
-  StatefulBuilder CheckBox(
-      String text, double fontSize, String imagePath, String whatToUSe) {
-    bool value1 = false;
-    if (whatToUSe == "vegetarian") {
-      isVegetarian.add(value1);
-    } else if (whatToUSe == "vegan") {
-      isVegen.add(value1);
-    } else if (whatToUSe == "meat") {
-      containsMeat.add(value1);
-    }
-    return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-      return Container(
-        margin: const EdgeInsets.only(
-            left: kDefaultPadding / 2, right: kDefaultPadding / 2),
-        child: CheckboxListTile(
-          contentPadding: const EdgeInsets.only(
-              top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-          title: TitleWithUnderscore(text: text, size: fontSize),
-          value: value1,
-          onChanged: (bool value) {
-            setState(() {
-              value1 = value;
-              if (whatToUSe == "vegetarian") {
-                isVegetarian[isVegetarian.length - 1] = value1;
-              } else if (whatToUSe == "vegan") {
-                isVegen[isVegen.length - 1] = value1;
-              } else if (whatToUSe == "meat") {
-                containsMeat[containsMeat.length - 1] = value1;
-              }
-            });
-          },
-          secondary: Image.asset(
-            imagePath,
-            width: MediaQuery.of(context).size.width / 10.5,
-            height: MediaQuery.of(context).size.width / 10.5,
-          ),
-        ),
-      );
-    });
   }
 }
 
