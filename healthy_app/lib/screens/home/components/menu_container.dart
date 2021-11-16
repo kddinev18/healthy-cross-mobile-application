@@ -34,9 +34,14 @@ class RecipeContainer extends StatelessWidget {
         width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
         height: 65,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: kPrimaryColor.withOpacity(0.7),
-        ),
+            borderRadius: BorderRadius.circular(20),
+            color: kPrimaryColor.withOpacity(0.7),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 10),
+                  blurRadius: 30,
+                  color: kPrimaryColor.withOpacity(0.2))
+            ]),
         child: Row(
           children: [
             Padding(
@@ -112,7 +117,7 @@ class RecipeContainer extends StatelessWidget {
               kDefaultPadding,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: kPrimaryColor.withOpacity(0.4),
+            color: kPrimaryColor.withOpacity(0.45),
           ),
           child: Padding(
             padding: const EdgeInsets.all(kDefaultPadding),
