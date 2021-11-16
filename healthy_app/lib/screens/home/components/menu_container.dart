@@ -73,24 +73,22 @@ class RecipeContainer extends StatelessWidget {
 
   Widget _buildPopupDialog(BuildContext context, List<String> content) {
     return AlertDialog(
-      title: const Text('Menu: '),
-      content: Column(
-        children: [
-          const TitleWithUnderscore(text: "Monday", size: 20),
-          Text(content[0]),
-          const TitleWithUnderscore(text: "Tuesday", size: 20),
-          Text(content[1]),
-          const TitleWithUnderscore(text: "Wednesday", size: 20),
-          Text(content[2]),
-          const TitleWithUnderscore(text: "Thursday", size: 20),
-          Text(content[3]),
-          const TitleWithUnderscore(text: "Friday", size: 20),
-          Text(content[4]),
-          const TitleWithUnderscore(text: "Saturday", size: 20),
-          Text(content[5]),
-          const TitleWithUnderscore(text: "Sunday", size: 20),
-          Text(content[6]),
-        ],
+      scrollable: true,
+      title: Text(name + ': '),
+      content: Container(
+        width: MediaQuery.of(context).size.width - 2 * kDefaultPadding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            menuContainer(context, content, "Monday"),
+            menuContainer(context, content, "Tuesday"),
+            menuContainer(context, content, "Wednesday"),
+            menuContainer(context, content, "Thursday"),
+            menuContainer(context, content, "Friday"),
+            menuContainer(context, content, "Saturday"),
+            menuContainer(context, content, "Sunday"),
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -101,6 +99,31 @@ class RecipeContainer extends StatelessWidget {
           child: const Text('Close'),
         ),
       ],
+    );
+  }
+
+  Padding menuContainer(
+      BuildContext context, List<String> content, String dayOfWeek) {
+    return Padding(
+      padding: const EdgeInsets.all(kDefaultPadding - 5),
+      child: Container(
+          width: MediaQuery.of(context).size.width -
+              2 * kDefaultPadding -
+              kDefaultPadding,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: kPrimaryColor.withOpacity(0.4),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(kDefaultPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleWithUnderscore(text: dayOfWeek, size: 20),
+                Text("\n      " + content[0] + "\n"),
+              ],
+            ),
+          )),
     );
   }
 
