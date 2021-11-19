@@ -5,6 +5,7 @@ import 'package:healthy_app/constants.dart';
 import 'package:healthy_app/screens/home/components/body.dart';
 
 import 'components/navigation_bar.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -15,16 +16,42 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  int index2 = 0;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar(),
-      body: Stack(
-        children: const [
-          Body(),
-          NavigationBar(
-            key: null,
+      body: const Body(),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(),
+        child: FFNavigationBar(
+          theme: FFNavigationBarTheme(
+            barBackgroundColor: Colors.white,
+            selectedItemBorderColor: Colors.white,
+            selectedItemBackgroundColor: kPrimaryColor,
+            selectedItemIconColor: Colors.white,
+            selectedItemLabelColor: Colors.black,
           ),
-        ],
+          selectedIndex: index2,
+          onSelectTab: (index) {
+            setState(() {
+              index2 = index;
+            });
+          },
+          items: [
+            FFNavigationBarItem(
+              iconData: Icons.calendar_today,
+              label: 'Schedule',
+            ),
+            FFNavigationBarItem(
+              iconData: Icons.people,
+              label: 'Contacts',
+            ),
+            FFNavigationBarItem(
+              iconData: Icons.attach_money,
+              label: 'Bills',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -35,10 +62,6 @@ class _HomePageState extends State<HomePage> {
       child: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        leading: IconButton(
-          icon: SvgPicture.asset("assets/icons/menu.svg"),
-          onPressed: () {},
-        ),
       ),
     );
   }
