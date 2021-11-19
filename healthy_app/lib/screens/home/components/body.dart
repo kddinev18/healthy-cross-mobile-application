@@ -234,7 +234,8 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title: TitleWithUnderscore(text: "Contains Meat", size: 17.5),
+                  title: const TitleWithUnderscore(
+                      text: "Contains Meat", size: 17.5),
                   value: value3,
                   onChanged: (bool value) {
                     setState(() {
