@@ -15,7 +15,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: kDefaultPadding * 2.5),
+      margin: const EdgeInsets.only(bottom: kDefaultPadding * 1.75),
       height: size.height * 0.2,
       child: Stack(
         children: [

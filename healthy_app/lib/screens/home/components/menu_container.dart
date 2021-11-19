@@ -5,14 +5,14 @@ import 'package:healthy_app/screens/home/components/title_with_underscore.dart';
 import '../../../constants.dart';
 
 class RecipeContainer extends StatelessWidget {
-  const RecipeContainer(
-      {Key? key,
-      required this.name,
-      required this.path1,
-      required this.path2,
-      required this.path3,
-      required this.content})
-      : super(key: key);
+  const RecipeContainer({
+    Key? key,
+    required this.name,
+    required this.path1,
+    required this.path2,
+    required this.path3,
+    required this.content,
+  }) : super(key: key);
 
   final List<String> content;
 
@@ -85,13 +85,13 @@ class RecipeContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            menuContainer(context, content, "Monday"),
-            menuContainer(context, content, "Tuesday"),
-            menuContainer(context, content, "Wednesday"),
-            menuContainer(context, content, "Thursday"),
-            menuContainer(context, content, "Friday"),
-            menuContainer(context, content, "Saturday"),
-            menuContainer(context, content, "Sunday"),
+            menuContainer(context, content, "Monday", 0),
+            menuContainer(context, content, "Tuesday", 1),
+            menuContainer(context, content, "Wednesday", 2),
+            menuContainer(context, content, "Thursday", 3),
+            menuContainer(context, content, "Friday", 4),
+            menuContainer(context, content, "Saturday", 5),
+            menuContainer(context, content, "Sunday", 6),
           ],
         ),
       ),
@@ -108,7 +108,7 @@ class RecipeContainer extends StatelessWidget {
   }
 
   Padding menuContainer(
-      BuildContext context, List<String> content, String dayOfWeek) {
+      BuildContext context, List<String> content, String dayOfWeek, int index) {
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding - 5),
       child: Container(
@@ -125,7 +125,7 @@ class RecipeContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TitleWithUnderscore(text: dayOfWeek, size: 20),
-                Text("\n      " + content[0] + "\n"),
+                Text("\n      " + content[index] + "\n"),
               ],
             ),
           )),

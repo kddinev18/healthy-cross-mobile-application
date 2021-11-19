@@ -16,13 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  int index2 = 0;
+  int index2 = 1;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar(),
       body: const Body(),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(),
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, -10),
+              blurRadius: 50,
+              color: kPrimaryColor.withOpacity(0.23))
+        ]),
         child: FFNavigationBar(
           theme: FFNavigationBarTheme(
             barBackgroundColor: Colors.white,
@@ -39,16 +44,16 @@ class _HomePageState extends State<HomePage> {
           },
           items: [
             FFNavigationBarItem(
-              iconData: Icons.calendar_today,
-              label: 'Schedule',
+              iconData: Icons.medication,
+              label: 'Medicine',
             ),
             FFNavigationBarItem(
-              iconData: Icons.people,
-              label: 'Contacts',
+              iconData: Icons.book,
+              label: 'Menus',
             ),
             FFNavigationBarItem(
-              iconData: Icons.attach_money,
-              label: 'Bills',
+              iconData: Icons.water,
+              label: 'Blood Sugar',
             ),
           ],
         ),
@@ -58,7 +63,7 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSize homeAppBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(10),
+      preferredSize: const Size.fromHeight(20),
       child: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
