@@ -17,10 +17,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   int index2 = 1;
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+    ),
+    Body(),
+    Text(
+      'Index 2: School',
+    ),
+  ];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: homeAppBar(),
-      body: const Body(),
+      body: /*const Body()*/ _widgetOptions.elementAt(index2),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
@@ -63,7 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSize homeAppBar() {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(20),
+      preferredSize: const Size.fromHeight(15),
       child: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
