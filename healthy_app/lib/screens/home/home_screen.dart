@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 import 'package:healthy_app/screens/home/components/body.dart';
-
-import 'components/navigation_bar.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
