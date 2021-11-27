@@ -18,8 +18,8 @@ class _BodyState extends State<Body> {
   List<int> bottom = <int>[0];
   List<String> names = <String>[];
 
-  List<bool> isVegetarian = <bool>[];
-  List<bool> isVegen = <bool>[];
+  List<bool> containsVegetables = <bool>[];
+  List<bool> containsAnimalProduct = <bool>[];
   List<bool> containsMeat = <bool>[];
 
   List<List<String>> dayOfTheWeek = <List<String>>[];
@@ -50,8 +50,8 @@ class _BodyState extends State<Body> {
                     backgroundColor: kPrimaryColor,
                     child: IconButton(
                       onPressed: () {
-                        isVegetarian.add(false);
-                        isVegen.add(false);
+                        containsVegetables.add(false);
+                        containsAnimalProduct.add(false);
                         containsMeat.add(false);
                         showDialog(
                             context: context,
@@ -92,10 +92,10 @@ class _BodyState extends State<Body> {
                               name: names[index],
                               path1: imageShower(
                                   "assets/icons/icons8-broccoli-50.png",
-                                  isVegetarian[index]),
+                                  containsVegetables[index]),
                               path2: imageShower(
                                   "assets/icons/icons8-milk-bottle-50.png",
-                                  isVegen[index]),
+                                  containsAnimalProduct[index]),
                               path3: imageShower(
                                   "assets/icons/icons8-meat-50.png",
                                   containsMeat[index]),
@@ -138,6 +138,7 @@ class _BodyState extends State<Body> {
       content: Container(
         width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: kDefaultPadding),
@@ -180,6 +181,9 @@ class _BodyState extends State<Body> {
                 contentController: dayOfTheWeekController[6],
                 text: "Sunday",
                 description: "Enter Sunday's meals"),
+            Container(
+                padding: EdgeInsets.only(top: kDefaultPadding * 2),
+                child: const TitleWithUnderscore(text: "Contains: ", size: 20)),
             StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
               return Container(
@@ -188,7 +192,7 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title: TitleWithUnderscore(text: "Is Vegetarian", size: 17.5),
+                  title: TitleWithUnderscore(text: "Vegetables", size: 17.5),
                   value: value1,
                   onChanged: (bool value) {
                     setState(() {
@@ -211,7 +215,8 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title: TitleWithUnderscore(text: "Is Vegan", size: 17.5),
+                  title:
+                      TitleWithUnderscore(text: "Animal Products", size: 17.5),
                   value: value2,
                   onChanged: (bool value) {
                     setState(() {
@@ -234,8 +239,7 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title: const TitleWithUnderscore(
-                      text: "Contains Meat", size: 17.5),
+                  title: const TitleWithUnderscore(text: "Meat", size: 17.5),
                   value: value3,
                   onChanged: (bool value) {
                     setState(() {
@@ -268,8 +272,8 @@ class _BodyState extends State<Body> {
                 onPressed: () {
                   Navigator.of(context).pop();
                   nameController.text = "";
-                  isVegetarian.removeLast();
-                  isVegen.removeLast();
+                  containsVegetables.removeLast();
+                  containsAnimalProduct.removeLast();
                   containsMeat.removeLast();
                 },
                 child: const Text('Cancel'),
@@ -288,8 +292,9 @@ class _BodyState extends State<Body> {
                       dayOfTheWeekController[5].text,
                       dayOfTheWeekController[6].text,
                     ]);
-                    isVegetarian[isVegetarian.length - 1] = value1;
-                    isVegen[isVegen.length - 1] = value2;
+                    containsVegetables[containsVegetables.length - 1] = value1;
+                    containsAnimalProduct[containsAnimalProduct.length - 1] =
+                        value2;
                     containsMeat[containsMeat.length - 1] = value3;
                     /*if (nameController.text == "") {
                       names.add("Empty");
