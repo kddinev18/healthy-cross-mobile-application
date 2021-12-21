@@ -296,17 +296,6 @@ class _BodyState extends State<Body> {
                     containsAnimalProduct[containsAnimalProduct.length - 1] =
                         value2;
                     containsMeat[containsMeat.length - 1] = value3;
-                    /*if (nameController.text == "") {
-                      names.add("Empty");
-                    } else {
-                      names.add(nameController.text);
-                    }
-                    if (contentController.text == "") {
-                      decriptions.add("Empty");
-                    } else {
-                      decriptions.add(contentController.text);
-                    }*/
-
                     bottom.add(bottom.length);
                   });
                   Navigator.of(context).pop();
