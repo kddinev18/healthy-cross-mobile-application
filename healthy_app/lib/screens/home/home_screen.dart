@@ -20,9 +20,7 @@ class _HomePageState extends State<HomePage> {
       'Index 0: Home',
     ),
     Body(),
-    Text(
-      'Index 2: School',
-    ),
+    Scaffold(),
   ];
   Widget build(BuildContext context) {
     return Scaffold(
