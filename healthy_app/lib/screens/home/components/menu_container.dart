@@ -30,47 +30,50 @@ class RecipeContainer extends StatelessWidget {
               _buildPopupDialog(context, content),
         );
       },
-      child: Container(
-        width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
-        height: 65,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: kPrimaryColor.withOpacity(0.7),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 10),
-                  blurRadius: 30,
-                  color: kPrimaryColor.withOpacity(0.2))
-            ]),
-        child: Row(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: dynamicFontSize(context, name)),
-            const Spacer(),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white.withOpacity(0.25)),
-              child: Padding(
-                padding: const EdgeInsets.all(13),
-                child: Row(
-                  children: [
-                    Text(
-                      'Type: ',
-                      style: Theme.of(context).textTheme.headline5!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                    typeContainer(context, path1),
-                    typeContainer(context, path2),
-                    typeContainer(context, path3),
-                  ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: MediaQuery.of(context).size.width - kDefaultPadding * 2,
+          height: 65,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: kPrimaryColor.withOpacity(0.7),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 10),
+                    blurRadius: 30,
+                    color: kPrimaryColor.withOpacity(0.2))
+              ]),
+          child: Row(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.all(kDefaultPadding),
+                  child: dynamicFontSize(context, name)),
+              const Spacer(),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white.withOpacity(0.25)),
+                child: Padding(
+                  padding: const EdgeInsets.all(13),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Type: ',
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                      typeContainer(context, path1),
+                      typeContainer(context, path2),
+                      typeContainer(context, path3),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
