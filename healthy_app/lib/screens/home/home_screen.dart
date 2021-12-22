@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
+import 'package:healthy_app/screens/blood_sugar/blood_sugar.dart';
 import 'package:healthy_app/screens/home/components/body.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       'Index 0: Home',
     ),
     Body(),
-    Scaffold(),
+    BloodSugar(),
   ];
   Widget build(BuildContext context) {
     return Scaffold(
