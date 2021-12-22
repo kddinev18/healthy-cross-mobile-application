@@ -6,9 +6,11 @@ class Button extends StatelessWidget {
   const Button({
     Key? key,
     required this.icon,
+    this.operation,
   }) : super(key: key);
 
   final Icon icon;
+  final Function()? operation;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class Button extends StatelessWidget {
           color: kPrimaryColor,
         ),
         child: IconButton(
-          onPressed: () {},
+          onPressed: operation,
           icon: icon,
           color: Colors.white,
         ),

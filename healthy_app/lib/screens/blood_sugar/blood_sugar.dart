@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
@@ -18,6 +20,8 @@ class _BloodSugarState extends State<BloodSugar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    List<Float> bloodPercentage = <Float>[];
+    List<DateTime> date = <DateTime>[];
     return Column(
       children: [
         Header(size: size),
@@ -29,10 +33,19 @@ class _BloodSugarState extends State<BloodSugar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
-                children: const [
-                  Button(icon: Icon(Icons.add)),
-                  Button(icon: Icon(Icons.remove)),
-                  Button(icon: Icon(Icons.edit)),
+                children: [
+                  Button(
+                      icon: const Icon(Icons.add),
+                      operation: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return addBloodSugarRecord(context);
+                            });
+                      }),
+                  Button(icon: const Icon(Icons.remove), operation: () {}),
+                  Button(icon: const Icon(Icons.edit), operation: () {}),
                 ],
               ),
               Spacer(),
@@ -55,6 +68,35 @@ class _BloodSugarState extends State<BloodSugar> {
             ],
           ),
         )
+      ],
+    );
+  }
+
+  AlertDialog addBloodSugarRecord(BuildContext context) {
+    return AlertDialog(
+      scrollable: true,
+      contentPadding: const EdgeInsets.all(kDefaultPadding),
+      titlePadding: const EdgeInsets.only(
+          top: kDefaultPadding, left: kDefaultPadding, right: kDefaultPadding),
+      title: const Text('Blood Sugar Record: '),
+      content: Container(),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text('Cancel'),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
