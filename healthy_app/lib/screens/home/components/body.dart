@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_app/constants.dart';
 import 'package:healthy_app/screens/home/components/menu_container.dart';
+import 'package:healthy_app/screens/home/components/title_with_text_field.dart';
 
 import 'header.dart';
 import 'title_with_underscore.dart';
@@ -75,8 +76,8 @@ class _BodyState extends State<Body> {
                 Container(
                   height: size.height / 1.70,
                   width: size.width,
-                  child: SvgPicture.asset(
-                      "assets/images/Eating healthy food-bro.svg"),
+                  child:
+                      SvgPicture.asset("assets/images/Eating healthy food.svg"),
                 ),
                 Container(
                   padding: const EdgeInsets.only(
@@ -154,35 +155,49 @@ class _BodyState extends State<Body> {
                   )),
             ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[0],
-                text: "Monday",
-                description: "Enter Monday's meals"),
+              contentController: dayOfTheWeekController[0],
+              text: "Monday",
+              description: "Enter Monday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[1],
-                text: "Tuesday",
-                description: "Enter Tuesday's meals"),
+              contentController: dayOfTheWeekController[1],
+              text: "Tuesday",
+              description: "Enter Tuesday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[2],
-                text: "Wednesday",
-                description: "Enter Wednesday's meals"),
+              contentController: dayOfTheWeekController[2],
+              text: "Wednesday",
+              description: "Enter Wednesday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[3],
-                text: "Thursday",
-                description: "Enter Thursday's meals"),
+              contentController: dayOfTheWeekController[3],
+              text: "Thursday",
+              description: "Enter Thursday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[4],
-                text: "Friday",
-                description: "Enter Friday's meals"),
+              contentController: dayOfTheWeekController[4],
+              text: "Friday",
+              description: "Enter Friday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[5],
-                text: "Saturday",
-                description: "Enter Saturday's meals"),
+              contentController: dayOfTheWeekController[5],
+              text: "Saturday",
+              description: "Enter Saturday's meals",
+              key: null,
+            ),
             TitleWithTextField(
-                contentController: dayOfTheWeekController[6],
-                text: "Sunday",
-                description: "Enter Sunday's meals"),
+              contentController: dayOfTheWeekController[6],
+              text: "Sunday",
+              description: "Enter Sunday's meals",
+              key: null,
+            ),
             Container(
-                padding: EdgeInsets.only(top: kDefaultPadding * 2),
+                padding: const EdgeInsets.only(top: kDefaultPadding * 2),
                 child: const TitleWithUnderscore(text: "Contains: ", size: 20)),
             StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
@@ -192,7 +207,8 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title: TitleWithUnderscore(text: "Vegetables", size: 17.5),
+                  title:
+                      const TitleWithUnderscore(text: "Vegetables", size: 17.5),
                   value: value1,
                   onChanged: (bool value) {
                     setState(() {
@@ -215,8 +231,8 @@ class _BodyState extends State<Body> {
                 child: CheckboxListTile(
                   contentPadding: const EdgeInsets.only(
                       top: kDefaultPadding / 2, bottom: kDefaultPadding / 2),
-                  title:
-                      TitleWithUnderscore(text: "Animal Products", size: 17.5),
+                  title: const TitleWithUnderscore(
+                      text: "Animal Products", size: 17.5),
                   value: value2,
                   onChanged: (bool value) {
                     setState(() {
@@ -316,41 +332,5 @@ class _BodyState extends State<Body> {
     } else {
       return "";
     }
-  }
-}
-
-class TitleWithTextField extends StatelessWidget {
-  const TitleWithTextField({
-    Key key,
-    @required this.contentController,
-    @required this.text,
-    @required this.description,
-  }) : super(key: key);
-
-  final String description;
-  final String text;
-  final TextEditingController contentController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleWithUnderscore(text: text, size: 20),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-              controller: contentController,
-              maxLines: null,
-              decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                      gapPadding: kDefaultPadding / 5,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kDefaultPadding))),
-                  hintText: description,
-                  icon: const Icon(Icons.book))),
-        ),
-      ],
-    );
   }
 }

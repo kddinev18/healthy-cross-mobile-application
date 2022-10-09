@@ -27,7 +27,7 @@ class _BloodSugarState extends State<BloodSugar> {
         Header(size: size),
         Padding(
           padding: const EdgeInsets.only(
-              right: kDefaultPadding, left: kDefaultPadding),
+              right: kDefaultPadding, left: kDefaultPadding / 3),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +52,8 @@ class _BloodSugarState extends State<BloodSugar> {
               Padding(
                 padding: const EdgeInsets.all(kDefaultPadding),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  height: MediaQuery.of(context).size.height / 1.6,
+                  width: MediaQuery.of(context).size.width / 1.65,
+                  height: MediaQuery.of(context).size.height / 2,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -79,19 +79,50 @@ class _BloodSugarState extends State<BloodSugar> {
       titlePadding: const EdgeInsets.only(
           top: kDefaultPadding, left: kDefaultPadding, right: kDefaultPadding),
       title: const Text('Blood Sugar Record: '),
-      content: Container(),
+      content: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                Icon(
+                  Icons.bloodtype,
+                  color: kPrimaryColor,
+                  size: kDefaultPadding * 4,
+                ),
+                Icon(
+                  Icons.date_range,
+                  color: kPrimaryColor,
+                  size: kDefaultPadding * 4,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                
+              ],
+            ),
+          ],
+        ),
+      ),
       actions: [
         Padding(
           padding: const EdgeInsets.all(kDefaultPadding / 2),
           child: Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
                 child: const Text('Cancel'),
               ),
               const Spacer(),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
                 child: const Text('Ok'),
               ),
             ],
